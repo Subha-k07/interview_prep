@@ -13,16 +13,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/select-role").permitAll() // Allow access to welcome page and select-role endpoint
-                        .anyRequest().authenticated() // Require authentication for all other requests
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/", "/select-role", "/student-login", "/admin-login", "/student-dashboard", "/admin-dashboard").permitAll()
+                                .anyRequest().authenticated()
                 )
-                .formLogin(form -> form
-                        .loginPage("/login") // Default login page (you can customize this later)
-                        .permitAll()
-                )
+                .formLogin().disable() // Disable default login page for now
                 .logout(logout -> logout.permitAll());
-
         return http.build();
     }
 }
