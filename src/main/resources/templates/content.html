@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Subtopic Content</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        a {
+            text-decoration: none;
+            color: #55aaff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            background-color: #444;
+            color: #e0e0e0;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px #cccccc,
+                       0 0 10px #cccccc,
+                       0 0 15px #cccccc;
+            margin: 10px;
+        }
+        .button:hover {
+            box-shadow: 0 0 15px #cccccc,
+                       0 0 30px #cccccc,
+                       0 0 45px #cccccc;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${subtopic.name}"></h1>
+<p>Reference Link: <a th:href="${subtopic.referenceLink}" th:text="${subtopic.referenceLink}" target="_blank"></a></p>
+<a th:href="@{/download/{subtopicName}(subtopicName=${subtopic.name})}">
+    <button class="button">Download Material</button>
+</a>
+<a th:href="@{/subtopics/{subject}(subject=${subject})}">
+    <button class="button">Back to Subtopics</button>
+</a>
+</body>
+</html>

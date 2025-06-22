@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <style>
         body {
-            background-color: #1a1a1a; /* Black background */
-            color: #e0e0e0; /* Light grey text */
+            background-color: #1a1a1a;
+            color: #e0e0e0;
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
@@ -14,21 +14,107 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            position: relative; /* For absolute positioning of top-right button */
         }
         h1 {
             font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 1.2em;
             margin-bottom: 20px;
+        }
+        .welcome {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .subject-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .subject-box {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
-            max-width: 600px;
+            width: 150px;
+        }
+        .subject-box p {
+            margin: 0 0 10px 0;
+            font-size: 1.2em;
+        }
+        .action-button {
+            background-color: #444;
+            color: #e0e0e0;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px #cccccc,
+                       0 0 10px #cccccc,
+                       0 0 15px #cccccc;
+            margin: 5px;
+        }
+        .action-button:hover {
+            box-shadow: 0 0 15px #cccccc,
+                       0 0 30px #cccccc,
+                       0 0 45px #cccccc;
+        }
+        .bottom-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        .top-right-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #444;
+            color: #e0e0e0;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px #cccccc,
+                       0 0 10px #cccccc,
+                       0 0 15px #cccccc;
+            text-decoration: none;
+        }
+        .top-right-button:hover {
+            box-shadow: 0 0 15px #cccccc,
+                       0 0 30px #cccccc,
+                       0 0 45px #cccccc;
         }
     </style>
 </head>
 <body>
+<a th:href="@{/admin/view-suggestions}" class="top-right-button">View Topic Suggestions</a>
+
 <h1>Admin Dashboard</h1>
-<p>Welcome, Admin! Manage interview resources here.</p>
+<p class="welcome" th:text="'Welcome, ' + ${username} + '!'"></p>
+
+<div class="subject-container">
+    <div th:each="subject : ${subjects}" class="subject-box">
+        <p th:text="${subject.name}"></p>
+        <button class="action-button" th:onclick="'window.location.href=\'' + @{/admin/manage-subtopics/{subject}(subject=${subject.name})} + '\''">
+            Manage Subtopics
+        </button>
+        <form th:action="@{/admin/delete-subject}" method="post" style="display:inline;">
+            <input type="hidden" name="subjectName" th:value="${subject.name}">
+            <button type="submit" class="action-button">Delete Subject</button>
+        </form>
+    </div>
+</div>
+
+<div class="bottom-buttons">
+    <button class="action-button" th:onclick="'window.location.href=\'' + @{/admin/add-subject} + '\''">
+        Add Subject
+    </button>
+    <button class="action-button" th:onclick="'window.location.href=\'' + @{/} + '\''">
+        Logout
+    </button>
+</div>
 </body>
 </html>

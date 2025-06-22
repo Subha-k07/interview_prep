@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Student Login</title>
+    <title>Suggest Topic</title>
     <meta charset="UTF-8">
     <style>
         body {
@@ -24,15 +24,10 @@
             flex-direction: column;
             width: 300px;
         }
-        .error {
-            color: #ff5555;
-            margin-bottom: 10px;
-            text-align: center;
-        }
         label {
             margin-bottom: 5px;
         }
-        input[type="text"], input[type="password"] {
+        input[type="text"], textarea {
             padding: 8px;
             margin-bottom: 15px;
             background-color: #333;
@@ -40,13 +35,16 @@
             color: #e0e0e0;
             border-radius: 5px;
         }
-        button {
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+        .button {
             background-color: #444;
             color: #e0e0e0;
             border: none;
             padding: 10px;
             font-size: 1em;
-            width: 150px;
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -54,34 +52,27 @@
                        0 0 10px #cccccc,
                        0 0 15px #cccccc;
         }
-        button:hover {
-            background-color: #555;
+        .button:hover {
             box-shadow: 0 0 15px #cccccc,
                        0 0 30px #cccccc,
                        0 0 45px #cccccc;
         }
-        .button-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
+        .submit-button {
+            margin-bottom: 20px; /* Add spacing below the submit button */
         }
     </style>
 </head>
 <body>
-<h1>Student Login</h1>
-<p th:if="${param.error}" class="error">Invalid username or password. Please try again.</p>
-<p th:if="${param.error == 'role'}" class="error">User role not recognized.</p>
-<form th:action="@{/login}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    <div class="button-wrapper">
-        <button type="submit">Sign In</button>
-        <a th:href="@{/student-signup}">
-            <button type="button">Sign Up</button>
-        </a>
-    </div>
+<h1>Suggest a Topic</h1>
+<form th:action="@{/suggest-topic}" method="post">
+    <label for="subject">Subject:</label>
+    <input type="text" id="subject" name="subject" required>
+    <label for="suggestion">Suggestion:</label>
+    <textarea id="suggestion" name="suggestion" required></textarea>
+    <button type="submit" class="button submit-button">Submit Suggestion</button>
 </form>
+<a th:href="@{/student-dashboard}">
+    <button class="button">Back to Dashboard</button>
+</a>
 </body>
 </html>

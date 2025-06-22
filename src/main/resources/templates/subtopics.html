@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Student Dashboard</title>
+    <title>Subtopics</title>
     <meta charset="UTF-8">
     <style>
         body {
@@ -14,29 +14,27 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            position: relative;
         }
         h1 {
             font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        .welcome {
-            font-size: 1.5em;
             margin-bottom: 20px;
         }
         .message {
-            margin-bottom: 20px;
             font-size: 1.2em;
+            color: #ff5555;
+            margin-bottom: 20px;
+        }
+        .debug {
             color: #55ff55;
+            margin-bottom: 20px;
         }
         .button-container {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
-            margin-bottom: 20px;
         }
-        .subject-button {
+        .subtopic-button {
             background-color: #444;
             color: #e0e0e0;
             border: none;
@@ -55,25 +53,21 @@
             justify-content: center;
             text-align: center;
         }
-        .subject-button:hover {
+        .subtopic-button:hover {
             box-shadow: 0 0 15px #cccccc,
                        0 0 30px #cccccc,
                        0 0 45px #cccccc;
             transform: scale(1.1);
         }
-        .action-buttons {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        a {
+            text-decoration: none;
         }
-        .action-button {
+        .back-button {
+            margin-top: 20px;
             background-color: #444;
             color: #e0e0e0;
             border: none;
-            padding: 8px 16px; /* Smaller rectangle shape */
+            padding: 10px 20px;
             font-size: 1em;
             border-radius: 5px;
             cursor: pointer;
@@ -81,37 +75,27 @@
             box-shadow: 0 0 5px #cccccc,
                        0 0 10px #cccccc,
                        0 0 15px #cccccc;
-            width: 150px; /* Fixed width for consistency */
         }
-        .action-button:hover {
+        .back-button:hover {
             box-shadow: 0 0 15px #cccccc,
                        0 0 30px #cccccc,
                        0 0 45px #cccccc;
         }
-        a {
-            text-decoration: none;
-        }
     </style>
 </head>
 <body>
-<div class="action-buttons">
-    <a th:href="@{/download-history}">
-        <button class="action-button">Download History</button>
-    </a>
-    <a th:href="@{/suggest-topic}">
-        <button class="action-button">Suggest Topic</button>
-    </a>
-    <a th:href="@{/logout}">
-        <button class="action-button">Logout</button>
-    </a>
-</div>
-<h1>Student Dashboard</h1>
-<p class="welcome">Welcome, <span th:text="${username}"></span>!</p>
+<h1 th:text="${subject} + ' Subtopics'"></h1>
 <p th:if="${message}" class="message" th:text="${message}"></p>
+<div class="debug" th:text="'Debug - Subtopics size: ' + ${#lists.size(subtopics)}"></div>
 <div class="button-container">
-    <a th:each="subject : ${subjects}" th:href="@{/subtopics/{subject}(subject=${subject.name})}">
-        <button class="subject-button" th:text="${subject.name}"></button>
-    </a>
+    <div th:each="subtopic : ${subtopics}" th:with="subtopicName=${subtopic.name}">
+        <a th:href="@{/content/{subject}/{subtopicName}(subject=${subject},subtopicName=${subtopicName})}">
+            <button class="subtopic-button" th:text="${subtopicName}"></button>
+        </a>
+    </div>
 </div>
+<a th:href="@{/student-dashboard}">
+    <button class="back-button">Back to Dashboard</button>
+</a>
 </body>
 </html>

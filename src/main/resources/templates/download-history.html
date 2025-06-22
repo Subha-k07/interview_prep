@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Download History</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #555;
+        }
+        th {
+            background-color: #333;
+        }
+        tr:hover {
+            background-color: #444;
+        }
+        .button {
+            background-color: #444;
+            color: #e0e0e0;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px #cccccc,
+                       0 0 10px #cccccc,
+                       0 0 15px #cccccc;
+        }
+        .button:hover {
+            box-shadow: 0 0 15px #cccccc,
+                       0 0 30px #cccccc,
+                       0 0 45px #cccccc;
+        }
+    </style>
+</head>
+<body>
+<h1>Download History</h1>
+<table>
+    <tr>
+        <th>Subtopic</th>
+        <th>Download Time</th>
+    </tr>
+    <tr th:each="download : ${downloads}">
+        <td th:text="${download.subtopicName}"></td>
+        <td th:text="${download.timestamp}"></td>
+    </tr>
+</table>
+<a th:href="@{/student-dashboard}">
+    <button class="button">Back to Dashboard</button>
+</a>
+</body>
+</html>

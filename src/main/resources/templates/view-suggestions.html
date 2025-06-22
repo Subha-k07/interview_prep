@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Suggestions</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #2a2a2a;
+        }
+        .back-button {
+            margin-top: 20px;
+            background-color: #444;
+            color: #e0e0e0;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px #cccccc;
+        }
+        .back-button:hover {
+            box-shadow: 0 0 15px #cccccc;
+        }
+    </style>
+</head>
+<body>
+<h1>Topic Suggestions (Admin: [[${username}]])</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Subject</th>
+        <th>Suggestion</th>
+        <th>Username</th>
+        <th>Timestamp</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="suggestion : ${suggestions}">
+        <td th:text="${suggestion.id}"></td>
+        <td th:text="${suggestion.subject}"></td>
+        <td th:text="${suggestion.suggestion}"></td>
+        <td th:text="${suggestion.username}"></td>
+        <td th:text="${#temporals.format(suggestion.timestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/admin-dashboard}">
+    <button class="back-button">Back to Dashboard</button>
+</a>
+</body>
+</html>

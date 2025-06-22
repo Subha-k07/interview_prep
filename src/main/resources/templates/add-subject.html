@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Student Login</title>
+    <title>Add Subject</title>
     <meta charset="UTF-8">
     <style>
         body {
@@ -24,15 +24,11 @@
             flex-direction: column;
             width: 300px;
         }
-        .error {
-            color: #ff5555;
-            margin-bottom: 10px;
-            text-align: center;
-        }
         label {
             margin-bottom: 5px;
+            font-size: 1.1em;
         }
-        input[type="text"], input[type="password"] {
+        input[type="text"] {
             padding: 8px;
             margin-bottom: 15px;
             background-color: #333;
@@ -63,24 +59,16 @@
         .button-wrapper {
             display: flex;
             justify-content: center;
-            gap: 10px;
         }
     </style>
 </head>
 <body>
-<h1>Student Login</h1>
-<p th:if="${param.error}" class="error">Invalid username or password. Please try again.</p>
-<p th:if="${param.error == 'role'}" class="error">User role not recognized.</p>
-<form th:action="@{/login}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
+<h1>Add Subject</h1>
+<form th:action="@{/admin/add-subject}" method="post">
+    <label for="subjectName">Subject Name:</label>
+    <input type="text" id="subjectName" name="subjectName" required>
     <div class="button-wrapper">
-        <button type="submit">Sign In</button>
-        <a th:href="@{/student-signup}">
-            <button type="button">Sign Up</button>
-        </a>
+        <button type="submit">Add Subject</button>
     </div>
 </form>
 </body>
